@@ -1,0 +1,3 @@
+[submodule "user-management"]
+	path = user-management
+	url = git@github.com:simanga-dev/user-management.git
