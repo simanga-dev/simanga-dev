@@ -1,0 +1,25 @@
+services:
+services:
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "MSSQL_SA_PASSWORD=Passw0rd!1"
+      - "MSSQL_PID=Express"
+    volumes:
+      - mssql-data:/var/opt/mssql
+  postgres-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=simanga"
+      - "POSTGRES_PASSWORD=mypassword"
+      - "POSTGRES_DB=simanga-db"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+volumes:
+  mssql-data:
+  postgres-data:
