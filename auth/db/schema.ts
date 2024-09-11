@@ -23,7 +23,7 @@ export const sessionTable = pgTable("session", {
 });
 
 export const todo = pgTable("todo", {
-  id: integer("id").primaryKey(),
+  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
   text: text("text").notNull(),
   done: boolean("done").default(false).notNull(),
 });

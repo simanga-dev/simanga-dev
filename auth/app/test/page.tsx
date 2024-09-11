@@ -34,9 +34,7 @@ export default function ProfileForm() {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     "server";
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    addTodo(1, "wow");
+    addTodo("Hellow world");
     console.log(values);
   }
 
