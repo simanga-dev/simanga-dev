@@ -4,3 +4,6 @@
 [submodule "parts-store"]
 	path = parts-store
 	url = git@github.com:simanga-dev/parts-store.git
+[submodule "two-pot"]
+	path = two-pot
+	url = git@github.com:simanga-dev/two-pot.git
