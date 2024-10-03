@@ -12,8 +12,6 @@ export default async function Page() { }
 export async function signup(formData: FormData): Promise<ActionResult> {
     "use server";
 
-    console.log(FormData)
-
     const username = formData.get("email");
 
     // username must be between 4 ~ 31 characters, and only consists of lowercase letters, 0-9, -, and _
@@ -50,14 +48,18 @@ export async function signup(formData: FormData): Promise<ActionResult> {
 
     const userId = generateIdFromEntropySize(10); // 16 characters long
 
+    const first_name = formData.get("first-name");
+    const last_name = formData.get("last_name");
+
     // TODO: check if username is already used
     await db.insert(userTable).values({
         id: userId,
         email: username,
-        first_name: formData.get("first-name"),
-        last_name: formData.get("last-name"),
+        first_name: typeof first_name === "string" ? first_name : null,
+        last_name: typeof last_name === "string" ? last_name : null,
         password_hash: passwordHash,
     });
+
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
