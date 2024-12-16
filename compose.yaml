@@ -1,30 +1,31 @@
 services:
-  meilisearch:
-      container_name: search-meilisearch
-      image: getmeili/meilisearch:v1.7.3
+  carperntry-shop:
+      container_name: carperntry-shop
+      image: ghcr.io/simanga-dev/carperntry-shop:latest
       restart: always
       ports:
-        - "7700:7700"
-      # user: "${UID}:${GID}"
+        - "8080:8080"
       environment:
-        # - MEILI_HOST=http://meilisearch:7700
-        - MEILI_NO_ANALYTICS=true
-      volumes:
-        - ./meili_data_v1.7:/meili_data
-  mssql-db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - "1433:1433"
-    environment:
-      - "ACCEPT_EULA=Y"
-      - "MSSQL_SA_PASSWORD=Passw0rd!1"
-      - "MSSQL_PID=Express"
-    volumes:
-      - mssql-data:/var/opt/mssql
+        - DB_CONNECTION=Host=postgres-db;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}
+      depends_on:
+        - postgres-db
+  # meilisearch:
+  #     container_name: search-meilisearch
+  #     image: getmeili/meilisearch:v1.7.3
+  #     restart: always
+  #     ports:
+  #       - "7700:7700"
+  #     # user: "${UID}:${GID}"
+  #     environment:
+  #       # - MEILI_HOST=http://meilisearch:7700
+  #       - MEILI_NO_ANALYTICS=true
+  #     volumes:
+  #       - ./meili_data_v1.7:/meili_data
+  #
   postgres-db:
     image: postgres
-    ports:
-      - "5432:5432"
+    # ports:
+    #   # - "5432:5432"
     environment:
       - "POSTGRES_USER=${POSTGRES_USER}"
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
@@ -32,5 +33,4 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 volumes:
-  mssql-data:
   postgres-data:
